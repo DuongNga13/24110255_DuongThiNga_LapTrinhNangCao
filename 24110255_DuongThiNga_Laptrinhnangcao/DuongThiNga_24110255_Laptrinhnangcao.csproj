@@ -1,0 +1,22 @@
+﻿double a, b, c;
+
+Console.Write("Enter number a: ");
+while (!double.TryParse(Console.ReadLine(), out a))
+{
+Console.Write("Invalid value, please enter number a again: ");
+}
+
+Console.Write("Enter number b: ");
+while (!double.TryParse(Console.ReadLine(), out b))
+{
+Console.Write("Invalid value, please enter number b again: ");
+}
+
+Console.Write("Enter number c: ");
+while (!double.TryParse(Console.ReadLine(), out c))
+{
+Console.Write("Invalid value, please enter number c again: ");
+}
+
+double sum = a + b + c;
+Console.WriteLine($"Sum of {a} + {b} + {c} = {sum}");
