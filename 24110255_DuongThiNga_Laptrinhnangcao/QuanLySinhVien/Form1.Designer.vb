@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Form1
+Partial Class tinh
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,15 +23,15 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.A = New System.Windows.Forms.Label()
-        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.RichTextBox2 = New System.Windows.Forms.RichTextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.RichTextBox3 = New System.Windows.Forms.RichTextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Buttoncong = New System.Windows.Forms.Button()
         Me.Buttonnhan = New System.Windows.Forms.Button()
         Me.Buttontru = New System.Windows.Forms.Button()
         Me.Buttonchia = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'A
@@ -46,22 +46,6 @@ Partial Class Form1
         Me.A.Text = "số a"
         Me.A.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'RichTextBox1
-        '
-        Me.RichTextBox1.Location = New System.Drawing.Point(234, 38)
-        Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(366, 49)
-        Me.RichTextBox1.TabIndex = 1
-        Me.RichTextBox1.Text = ""
-        '
-        'RichTextBox2
-        '
-        Me.RichTextBox2.Location = New System.Drawing.Point(234, 141)
-        Me.RichTextBox2.Name = "RichTextBox2"
-        Me.RichTextBox2.Size = New System.Drawing.Size(366, 49)
-        Me.RichTextBox2.TabIndex = 3
-        Me.RichTextBox2.Text = ""
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -73,14 +57,6 @@ Partial Class Form1
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "số b"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'RichTextBox3
-        '
-        Me.RichTextBox3.Location = New System.Drawing.Point(234, 254)
-        Me.RichTextBox3.Name = "RichTextBox3"
-        Me.RichTextBox3.Size = New System.Drawing.Size(366, 49)
-        Me.RichTextBox3.TabIndex = 5
-        Me.RichTextBox3.Text = ""
         '
         'Label2
         '
@@ -98,7 +74,7 @@ Partial Class Form1
         '
         Me.Buttoncong.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Buttoncong.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
-        Me.Buttoncong.Location = New System.Drawing.Point(752, 43)
+        Me.Buttoncong.Location = New System.Drawing.Point(999, 125)
         Me.Buttoncong.Name = "Buttoncong"
         Me.Buttoncong.Size = New System.Drawing.Size(98, 65)
         Me.Buttoncong.TabIndex = 6
@@ -108,9 +84,9 @@ Partial Class Form1
         'Buttonnhan
         '
         Me.Buttonnhan.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
-        Me.Buttonnhan.Location = New System.Drawing.Point(752, 170)
+        Me.Buttonnhan.Location = New System.Drawing.Point(867, 217)
         Me.Buttonnhan.Name = "Buttonnhan"
-        Me.Buttonnhan.Size = New System.Drawing.Size(98, 65)
+        Me.Buttonnhan.Size = New System.Drawing.Size(98, 61)
         Me.Buttonnhan.TabIndex = 7
         Me.Buttonnhan.Text = "Nhân"
         Me.Buttonnhan.UseVisualStyleBackColor = True
@@ -118,7 +94,7 @@ Partial Class Form1
         'Buttontru
         '
         Me.Buttontru.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
-        Me.Buttontru.Location = New System.Drawing.Point(956, 43)
+        Me.Buttontru.Location = New System.Drawing.Point(867, 124)
         Me.Buttontru.Name = "Buttontru"
         Me.Buttontru.Size = New System.Drawing.Size(98, 65)
         Me.Buttontru.TabIndex = 8
@@ -128,31 +104,52 @@ Partial Class Form1
         'Buttonchia
         '
         Me.Buttonchia.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
-        Me.Buttonchia.Location = New System.Drawing.Point(956, 170)
+        Me.Buttonchia.Location = New System.Drawing.Point(999, 217)
         Me.Buttonchia.Name = "Buttonchia"
         Me.Buttonchia.Size = New System.Drawing.Size(98, 65)
         Me.Buttonchia.TabIndex = 9
         Me.Buttonchia.Text = "Chia"
         Me.Buttonchia.UseVisualStyleBackColor = True
         '
-        'Form1
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(260, 60)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(384, 26)
+        Me.TextBox1.TabIndex = 10
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(260, 163)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(384, 26)
+        Me.TextBox2.TabIndex = 11
+        '
+        'TextBox3
+        '
+        Me.TextBox3.Location = New System.Drawing.Point(260, 277)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.Size = New System.Drawing.Size(384, 26)
+        Me.TextBox3.TabIndex = 12
+        '
+        'tinh
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.BackColor = System.Drawing.SystemColors.Control
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ClientSize = New System.Drawing.Size(1375, 853)
+        Me.Controls.Add(Me.TextBox3)
+        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Buttonchia)
         Me.Controls.Add(Me.Buttontru)
         Me.Controls.Add(Me.Buttonnhan)
         Me.Controls.Add(Me.Buttoncong)
-        Me.Controls.Add(Me.RichTextBox3)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.RichTextBox2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.RichTextBox1)
         Me.Controls.Add(Me.A)
-        Me.Name = "Form1"
+        Me.Name = "tinh"
         Me.Text = "Form1"
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -160,13 +157,13 @@ Partial Class Form1
     End Sub
 
     Friend WithEvents A As Label
-    Friend WithEvents RichTextBox1 As RichTextBox
-    Friend WithEvents RichTextBox2 As RichTextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents RichTextBox3 As RichTextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Buttoncong As Button
     Friend WithEvents Buttonnhan As Button
     Friend WithEvents Buttontru As Button
     Friend WithEvents Buttonchia As Button
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents TextBox3 As TextBox
 End Class
