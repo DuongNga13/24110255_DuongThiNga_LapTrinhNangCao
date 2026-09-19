@@ -5,7 +5,7 @@ using System.Text;
 namespace BaiTap.Entity
 {
     // include properties: subID, Name, credit, semester, teacher
-    public class SubjectStudent
+    public class SubjectStudent 
     {
         public string SubID { get; set; }
         public string Name { get; set; }
@@ -74,3 +74,12 @@ namespace BaiTap.Entity
             }).ToList();
         }
     }
+    public class Student    
+    {
+        public string StuID { get; set; }
+        public string Name { get; set; }
+        public double MidPoint { get; set; }
+        public double FinalPoint { get; set; }
+        public string Email { get; set; }
+    }
+}
