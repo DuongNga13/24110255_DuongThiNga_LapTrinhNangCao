@@ -6,4 +6,5 @@
   <Project Path="ManageStudent2/ManageStudent2.csproj" Id="6079bff1-1f62-461d-a274-77bf49697489" />
   <Project Path="manage_student/manage_student.csproj" Id="93aa0892-c5c8-433f-94b8-dd4c06583a89" />
   <Project Path="odd_add/odd_add.csproj" Id="b3d2e94d-c7d1-47dc-82fc-23351d8dbe07" />
+  <Project Path="QuanLySinhVien/QuanLySinhVien.vbproj" Id="915632b6-8f64-4229-84cc-08205c1a2231" />
 </Solution>
