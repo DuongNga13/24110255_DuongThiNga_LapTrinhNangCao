@@ -2,5 +2,6 @@
   <Project Path="../ExampleCAdvance/ExampleCAdvance.csproj" Id="9c580611-549d-466c-8f21-369e7812db4d" />
   <Project Path="../HinhTron/Circle.csproj" Id="f4bb43fa-ec45-437f-9c1a-2a379da63c0c" />
   <Project Path="../SumABC/SumABC.csproj" Id="3d94eec2-891b-4a77-8566-0532f34703bc" />
+  <Project Path="manage_student/manage_student.csproj" Id="93aa0892-c5c8-433f-94b8-dd4c06583a89" />
   <Project Path="odd_add/odd_add.csproj" Id="b3d2e94d-c7d1-47dc-82fc-23351d8dbe07" />
 </Solution>
