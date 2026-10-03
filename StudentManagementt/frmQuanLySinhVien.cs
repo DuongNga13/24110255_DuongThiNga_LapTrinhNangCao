@@ -5,12 +5,11 @@ using System.Windows.Forms;
 
 namespace StudentManagementt
 {
-    public partial class Form1 : Form
+    public partial class frmQuanLySinhVien : Form
     {
         // 1. Danh sách lưu trữ sinh viên tạm thời trong bộ nhớ
         private BindingList<Student> _studentList = new BindingList<Student>();
-
-        public Form1()
+        public frmQuanLySinhVien()
         {
             InitializeComponent();
 
@@ -19,6 +18,7 @@ namespace StudentManagementt
             InitComboBoxData();
             BindGrid();
             RegisterEvents();
+
         }
 
         // Sự kiện tự sinh khi bạn lỡ click đúp vào panel1 (có thể để trống)
@@ -29,10 +29,10 @@ namespace StudentManagementt
         // 2. Tạo dữ liệu mẫu giống hệt hình bài thực hành
         private void LoadDataSample()
         {
-            _studentList.Add(new Student { MaSV = "SV000123", HoTen = "Nguyễn Văn An", NgaySinh = "15/08/2006", GioiTinh = "Nam", Email = "an.nv@huce.edu.vn", DienThoai = "0912345678", Diem = 9.5, Lop = "Kỹ thuật phần mềm 01", TrangThai = "Đang học" });
-            _studentList.Add(new Student { MaSV = "SV000124", HoTen = "Ngô Khắc Anh", NgaySinh = "22/01/2006", GioiTinh = "Nữ", Email = "anh.nk@huce.edu.vn", DienThoai = "0901054321", Diem = 9.0, Lop = "Trí tuệ nhân tạo 01", TrangThai = "Đang học" });
-            _studentList.Add(new Student { MaSV = "SV000125", HoTen = "Lê Hoàng Bình", NgaySinh = "20/03/2006", GioiTinh = "Nam", Email = "binh.lh@huce.edu.vn", DienThoai = "0920366977", Diem = 7.8, Lop = "Kỹ thuật phần mềm 02", TrangThai = "Đang học" });
-            _studentList.Add(new Student { MaSV = "SV000126", HoTen = "Đỗ Thế Hùng", NgaySinh = "31/12/2006", GioiTinh = "Nữ", Email = "hung.dt@huce.edu.vn", DienThoai = "0977889999", Diem = 8.1, Lop = "Khoa học dữ liệu 01", TrangThai = "Đang học" });
+            _studentList.Add(new Student { MaSV = "SV000123", HoTen = "Nguyễn Văn An", NgaySinh = "01/01/2006", GioiTinh = "Nam", Email = "an.nv@st.vju.ac.vn", DienThoai = "0912345678", Diem = 9.5, Lop = "Kỹ thuật phần mềm 01", TrangThai = "Đang học" });
+            _studentList.Add(new Student { MaSV = "SV000124", HoTen = "Ngô Khắc Anh", NgaySinh = "02/02/2006", GioiTinh = "Nữ", Email = "anh.nk@st.vju.ac.vn", DienThoai = "0901054321", Diem = 9.0, Lop = "Trí tuệ nhân tạo 01", TrangThai = "Đang học" });
+            _studentList.Add(new Student { MaSV = "SV000125", HoTen = "Lê Hoàng Bình", NgaySinh = "03/03/2006", GioiTinh = "Nam", Email = "binh.lh@st.vju.ac.vn", DienThoai = "0920366977", Diem = 7.8, Lop = "Kỹ thuật phần mềm 02", TrangThai = "Đang học" });
+            _studentList.Add(new Student { MaSV = "SV000126", HoTen = "Đỗ Thế Hùng", NgaySinh = "04/04/2006", GioiTinh = "Nữ", Email = "hung.dt@st.vju.ac.vn", DienThoai = "0977889999", Diem = 8.1, Lop = "Khoa học dữ liệu 01", TrangThai = "Đang học" });
         }
 
         // 3. Khởi tạo danh sách cho các ComboBox (Lớp, Trạng thái)
@@ -193,14 +193,24 @@ namespace StudentManagementt
             if (lblTongSo != null) lblTongSo.Text = $"Tổng số: {filtered.Count} sinh viên";
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void frmQuanLySinhVien_Load(object sender, EventArgs e)
         {
+            LoadDataSample();
+            txtMaSV.Focus();
+            cboLop.DisplayMember = "TenLop";
+            cboLop.ValueMember = "MaLop";
 
+            dgvSinhVien.DataSource = _studentList;
+            lblTongSo.Text = $"Tổng số: {_studentList.Count} sinh viên";
+            btnThem.Enabled = true;
+            btnSua.Enabled = true;
+            btnXoa.Enabled = true;
         }
 
-        private void dtpNgaySinh_ValueChanged(object sender, EventArgs e)
+        private void maSV_enter(object sender, EventArgs e)
         {
-
+            txtMaSV.SelectAll();
+            txtMaSV.Focus();
         }
 
         private void txtDiem_TextChanged(object sender, EventArgs e)
@@ -251,6 +261,10 @@ namespace StudentManagementt
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+        private void lblTongSo_Click(object sender, EventArgs e)
+        {
+            // Hàm xử lý sự kiện click vào nhãn Tổng số
         }
     }
 

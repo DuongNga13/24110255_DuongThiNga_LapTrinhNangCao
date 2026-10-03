@@ -1,6 +1,6 @@
 ﻿namespace StudentManagementt
 {
-    partial class Form1
+    partial class frmQuanLySinhVien
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -125,7 +125,7 @@
             dtpNgaySinh.MaxDate = new DateTime(2026, 10, 3, 0, 0, 0, 0);
             dtpNgaySinh.Name = "dtpNgaySinh";
             dtpNgaySinh.Size = new Size(180, 31);
-            dtpNgaySinh.TabIndex = 19;
+            dtpNgaySinh.TabIndex = 1;
             dtpNgaySinh.Value = new DateTime(2026, 3, 10, 0, 0, 0, 0);
             dtpNgaySinh.ValueChanged += dateTimePicker1_ValueChanged;
             // 
@@ -143,7 +143,8 @@
             txtMaSV.Location = new Point(100, 22);
             txtMaSV.Name = "txtMaSV";
             txtMaSV.Size = new Size(180, 31);
-            txtMaSV.TabIndex = 1;
+            txtMaSV.TabIndex = 0;
+            txtMaSV.KeyPress += this.txtMaSV_KeyPress;
             // 
             // lblHoTen
             // 
@@ -174,7 +175,7 @@
             cboLop.Location = new Point(705, 22);
             cboLop.Name = "cboLop";
             cboLop.Size = new Size(210, 33);
-            cboLop.TabIndex = 5;
+            cboLop.TabIndex = 7;
             // 
             // lblNgaySinh
             // 
@@ -198,7 +199,7 @@
             rdoNam.Location = new Point(399, 58);
             rdoNam.Name = "rdoNam";
             rdoNam.Size = new Size(77, 24);
-            rdoNam.TabIndex = 9;
+            rdoNam.TabIndex = 4;
             rdoNam.TabStop = true;
             rdoNam.Text = "Nam";
             // 
@@ -207,7 +208,7 @@
             rdoNu.Location = new Point(486, 60);
             rdoNu.Name = "rdoNu";
             rdoNu.Size = new Size(104, 24);
-            rdoNu.TabIndex = 10;
+            rdoNu.TabIndex = 5;
             rdoNu.Text = "Nữ";
             // 
             // lblDiem
@@ -224,7 +225,7 @@
             txtDiem.Location = new Point(705, 56);
             txtDiem.Name = "txtDiem";
             txtDiem.Size = new Size(210, 31);
-            txtDiem.TabIndex = 12;
+            txtDiem.TabIndex = 8;
             txtDiem.TextChanged += txtDiem_TextChanged;
             // 
             // lblEmail
@@ -240,7 +241,7 @@
             txtEmail.Location = new Point(100, 92);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(180, 31);
-            txtEmail.TabIndex = 14;
+            txtEmail.TabIndex = 2;
             // 
             // lblDienThoai
             // 
@@ -255,7 +256,7 @@
             txtDienThoai.Location = new Point(390, 92);
             txtDienThoai.Name = "txtDienThoai";
             txtDienThoai.Size = new Size(200, 31);
-            txtDienThoai.TabIndex = 16;
+            txtDienThoai.TabIndex = 6;
             // 
             // lblTrangThai
             // 
@@ -271,7 +272,7 @@
             cboTrangThai.Location = new Point(705, 90);
             cboTrangThai.Name = "cboTrangThai";
             cboTrangThai.Size = new Size(210, 33);
-            cboTrangThai.TabIndex = 18;
+            cboTrangThai.TabIndex = 9;
             // 
             // btnThem
             // 
@@ -280,7 +281,7 @@
             btnThem.Location = new Point(559, 208);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(85, 32);
-            btnThem.TabIndex = 2;
+            btnThem.TabIndex = 10;
             btnThem.Text = "Thêm";
             btnThem.UseVisualStyleBackColor = false;
             // 
@@ -291,7 +292,7 @@
             btnSua.Location = new Point(654, 208);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(85, 32);
-            btnSua.TabIndex = 3;
+            btnSua.TabIndex = 11;
             btnSua.Text = "Sửa";
             btnSua.UseVisualStyleBackColor = false;
             // 
@@ -302,7 +303,7 @@
             btnXoa.Location = new Point(749, 208);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(85, 32);
-            btnXoa.TabIndex = 4;
+            btnXoa.TabIndex = 12;
             btnXoa.Text = "Xóa";
             btnXoa.UseVisualStyleBackColor = false;
             // 
@@ -313,7 +314,7 @@
             btnLamMoi.Location = new Point(844, 208);
             btnLamMoi.Name = "btnLamMoi";
             btnLamMoi.Size = new Size(85, 32);
-            btnLamMoi.TabIndex = 5;
+            btnLamMoi.TabIndex = 13;
             btnLamMoi.Text = "Làm mới";
             btnLamMoi.UseVisualStyleBackColor = false;
             // 
@@ -323,7 +324,7 @@
             txtTuKhoa.Name = "txtTuKhoa";
             txtTuKhoa.PlaceholderText = "Mã, họ tên, email hoặc điện thoại";
             txtTuKhoa.Size = new Size(274, 31);
-            txtTuKhoa.TabIndex = 6;
+            txtTuKhoa.TabIndex = 14;
             // 
             // cboLopFilter
             // 
@@ -331,7 +332,7 @@
             cboLopFilter.Location = new Point(449, 259);
             cboLopFilter.Name = "cboLopFilter";
             cboLopFilter.Size = new Size(81, 33);
-            cboLopFilter.TabIndex = 7;
+            cboLopFilter.TabIndex = 15;
             // 
             // btnTimKiem
             // 
@@ -340,7 +341,7 @@
             btnTimKiem.Location = new Point(709, 262);
             btnTimKiem.Name = "btnTimKiem";
             btnTimKiem.Size = new Size(90, 31);
-            btnTimKiem.TabIndex = 8;
+            btnTimKiem.TabIndex = 17;
             btnTimKiem.Text = "Tìm kiếm";
             btnTimKiem.UseVisualStyleBackColor = false;
             btnTimKiem.Click += btnTimKiem_Click_1;
@@ -350,7 +351,7 @@
             btnHienThi.Location = new Point(805, 262);
             btnHienThi.Name = "btnHienThi";
             btnHienThi.Size = new Size(139, 31);
-            btnHienThi.TabIndex = 9;
+            btnHienThi.TabIndex = 18;
             btnHienThi.Text = "Hiển thị tất cả";
             btnHienThi.Click += btnHienThi_Click;
             // 
@@ -358,11 +359,13 @@
             // 
             lblTongSo.AutoSize = true;
             lblTongSo.Font = new Font("Segoe UI", 7F);
+            lblTongSo.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Polite;
             lblTongSo.Location = new Point(817, 303);
             lblTongSo.Name = "lblTongSo";
             lblTongSo.Size = new Size(131, 19);
             lblTongSo.TabIndex = 10;
             lblTongSo.Text = "Tổng số: 0 sinh viên";
+            lblTongSo.Click += lblTongSo_Click;
             // 
             // dgvSinhVien
             // 
@@ -376,6 +379,7 @@
             dgvSinhVien.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvSinhVien.Size = new Size(933, 250);
             dgvSinhVien.TabIndex = 11;
+            dgvSinhVien.TabStop = false;
             // 
             // label1
             // 
@@ -425,7 +429,7 @@
             label2.Text = "Lớp";
             label2.Click += label2_Click;
             // 
-            // Form1
+            // frmQuanLySinhVien
             // 
             AccessibleName = "lblDiem";
             AutoSize = true;
@@ -447,7 +451,7 @@
             Controls.Add(lblLophoc);
             Controls.Add(lblTuKhoa);
             Controls.Add(textBox2);
-            Name = "Form1";
+            Name = "frmQuanLySinhVien";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Ứng dụng quản lý sinh viên";
             panelHeader.ResumeLayout(false);
