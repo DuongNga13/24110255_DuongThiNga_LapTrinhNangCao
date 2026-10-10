@@ -14,14 +14,14 @@ namespace StudentManagementt
 
         private static readonly Dictionary<string, string> ColumnHeaderMap = new()
         {
-            ["MaSV"]      = "Mã SV",
-            ["HoTen"]     = "Họ và tên",
-            ["NgaySinh"]  = "Ngày sinh",
-            ["GioiTinh"]  = "Giới tính",
-            ["Email"]     = "Email",
+            ["MaSV"] = "Mã SV",
+            ["HoTen"] = "Họ và tên",
+            ["NgaySinh"] = "Ngày sinh",
+            ["GioiTinh"] = "Giới tính",
+            ["Email"] = "Email",
             ["DienThoai"] = "Điện thoại",
-            ["Diem"]      = "Điểm",
-            ["MaLop"]     = "Lớp",
+            ["Diem"] = "Điểm",
+            ["MaLop"] = "Lớp",
             ["TrangThai"] = "Trạng thái",
         };
 
@@ -38,9 +38,9 @@ namespace StudentManagementt
 
         private void InitComboBoxes()
         {
-            cboLop.DataSource    = new List<LopHoc>(_cachedLopList);
+            cboLop.DataSource = new List<LopHoc>(_cachedLopList);
             cboLop.DisplayMember = "TenLop";
-            cboLop.ValueMember   = "MaLop";
+            cboLop.ValueMember = "MaLop";
 
             cboLopFilter.Items.Clear();
             cboLopFilter.Items.Add("Tất cả các lớp");
@@ -56,12 +56,12 @@ namespace StudentManagementt
         private void BindEventHandlers()
         {
             dgvSinhVien.CellClick += OnGridCellClick;
-            btnThem.Click         += OnAddClick;
-            btnSua.Click          += OnUpdateClick;
-            btnXoa.Click          += OnDeleteClick;
-            btnLamMoi.Click       += (_, _) => ResetForm();
-            btnTimKiem.Click      += OnSearchClick;
-            btnHienThi.Click      += (_, _) => RefreshGrid(_svBUL.GetAll());
+            btnThem.Click += OnAddClick;
+            btnSua.Click += OnUpdateClick;
+            btnXoa.Click += OnDeleteClick;
+            btnLamMoi.Click += (_, _) => ResetForm();
+            btnTimKiem.Click += OnSearchClick;
+            btnHienThi.Click += (_, _) => RefreshGrid(_svBUL.GetAll());
         }
 
         // ── Hiển thị dữ liệu ─────────────────────────────────────────────
@@ -89,20 +89,20 @@ namespace StudentManagementt
 
             var row = dgvSinhVien.Rows[e.RowIndex];
 
-            txtMaSV.Text      = CellText(row, "MaSV");
-            txtHoTen.Text     = CellText(row, "HoTen");
-            txtEmail.Text     = CellText(row, "Email");
+            txtMaSV.Text = CellText(row, "MaSV");
+            txtHoTen.Text = CellText(row, "HoTen");
+            txtEmail.Text = CellText(row, "Email");
             txtDienThoai.Text = CellText(row, "DienThoai");
-            txtDiem.Text      = CellText(row, "Diem");
+            txtDiem.Text = CellText(row, "Diem");
 
             if (row.Cells["NgaySinh"].Value is DateTime ngaySinh)
                 dtpNgaySinh.Value = ngaySinh;
 
             bool isNam = CellText(row, "GioiTinh") == "Nam";
             rdoNam.Checked = isNam;
-            rdoNu.Checked  = !isNam;
+            rdoNu.Checked = !isNam;
 
-            cboLop.SelectedValue  = CellText(row, "MaLop");
+            cboLop.SelectedValue = CellText(row, "MaLop");
             cboTrangThai.SelectedItem = CellText(row, "TrangThai");
         }
 
@@ -143,8 +143,8 @@ namespace StudentManagementt
         private void OnSearchClick(object? sender, EventArgs e)
         {
             string keyword = txtTuKhoa.Text.Trim();
-            string tenLop  = cboLopFilter.SelectedItem?.ToString() ?? "";
-            string maLop   = tenLop == "Tất cả các lớp"
+            string tenLop = cboLopFilter.SelectedItem?.ToString() ?? "";
+            string maLop = tenLop == "Tất cả các lớp"
                 ? ""
                 : _cachedLopList.Find(l => l.TenLop == tenLop)?.MaLop ?? "";
 
@@ -155,14 +155,14 @@ namespace StudentManagementt
 
         private SinhVien ReadFormData() => new()
         {
-            MaSV      = txtMaSV.Text.Trim(),
-            HoTen     = txtHoTen.Text.Trim(),
-            NgaySinh  = dtpNgaySinh.Value.Date,
-            GioiTinh  = rdoNam.Checked ? "Nam" : "Nữ",
-            Email     = txtEmail.Text.Trim(),
+            MaSV = txtMaSV.Text.Trim(),
+            HoTen = txtHoTen.Text.Trim(),
+            NgaySinh = dtpNgaySinh.Value.Date,
+            GioiTinh = rdoNam.Checked ? "Nam" : "Nữ",
+            Email = txtEmail.Text.Trim(),
             DienThoai = txtDienThoai.Text.Trim(),
-            Diem      = double.TryParse(txtDiem.Text, out double d) ? d : -1,
-            MaLop     = cboLop.SelectedValue?.ToString() ?? "",
+            Diem = double.TryParse(txtDiem.Text, out double d) ? d : -1,
+            MaLop = cboLop.SelectedValue?.ToString() ?? "",
             TrangThai = cboTrangThai.SelectedItem?.ToString() ?? "Đang học",
         };
 
@@ -173,9 +173,9 @@ namespace StudentManagementt
             txtEmail.Clear();
             txtDienThoai.Clear();
             txtDiem.Clear();
-            rdoNam.Checked    = true;
+            rdoNam.Checked = true;
             dtpNgaySinh.Value = DateTime.Today;
-            if (cboLop.Items.Count      > 0) cboLop.SelectedIndex      = 0;
+            if (cboLop.Items.Count > 0) cboLop.SelectedIndex = 0;
             if (cboTrangThai.Items.Count > 0) cboTrangThai.SelectedIndex = 0;
             txtMaSV.Focus();
         }
@@ -211,5 +211,10 @@ namespace StudentManagementt
         private void label2_Click(object sender, EventArgs e) { }
         private void lblTongSo_Click(object sender, EventArgs e) { }
         private void txtMaSV_KeyPress(object sender, KeyPressEventArgs e) { }
+
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

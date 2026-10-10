@@ -15,7 +15,7 @@ namespace StudentManagementt.BUL
         public List<SinhVien> Search(string keyword, string maLop)
             => _dal.Search(keyword, maLop);
 
-        /// <summary>Thêm sinh viên. Trả về null nếu thành công, chuỗi lỗi nếu thất bại.</summary>
+        /// Thêm sinh viên. Trả về null nếu thành công, chuỗi lỗi nếu thất bại.
         public string? Add(SinhVien sv)
         {
             string? error = Validate(sv);
@@ -24,7 +24,7 @@ namespace StudentManagementt.BUL
             return _dal.Add(sv) ? null : $"Mã sinh viên '{sv.MaSV}' đã tồn tại.";
         }
 
-        /// <summary>Cập nhật sinh viên. Trả về null nếu thành công, chuỗi lỗi nếu thất bại.</summary>
+        /// Cập nhật sinh viên. Trả về null nếu thành công, chuỗi lỗi nếu thất bại.
         public string? Update(SinhVien sv)
         {
             string? error = Validate(sv);
@@ -33,7 +33,7 @@ namespace StudentManagementt.BUL
             return _dal.Update(sv) ? null : $"Không tìm thấy sinh viên '{sv.MaSV}'.";
         }
 
-        /// <summary>Xoá sinh viên. Trả về null nếu thành công, chuỗi lỗi nếu thất bại.</summary>
+        /// Xoá sinh viên. Trả về null nếu thành công, chuỗi lỗi nếu thất bại.
         public string? Delete(string maSV)
         {
             if (string.IsNullOrWhiteSpace(maSV))
@@ -42,7 +42,7 @@ namespace StudentManagementt.BUL
             return _dal.Delete(maSV) ? null : $"Không tìm thấy sinh viên '{maSV}'.";
         }
 
-        /// <summary>Kiểm tra dữ liệu hợp lệ. Trả về null nếu hợp lệ, chuỗi lỗi nếu không.</summary>
+        /// Kiểm tra dữ liệu hợp lệ. Trả về null nếu hợp lệ, chuỗi lỗi nếu không.
         public string? Validate(SinhVien sv)
         {
             if (string.IsNullOrWhiteSpace(sv.MaSV))

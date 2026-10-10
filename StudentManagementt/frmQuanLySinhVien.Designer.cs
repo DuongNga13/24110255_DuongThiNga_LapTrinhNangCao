@@ -142,9 +142,10 @@
             // 
             txtMaSV.Location = new Point(100, 22);
             txtMaSV.Name = "txtMaSV";
+            txtMaSV.PlaceholderText = "24110222";
             txtMaSV.Size = new Size(180, 31);
             txtMaSV.TabIndex = 0;
-            txtMaSV.KeyPress += this.txtMaSV_KeyPress;
+            txtMaSV.KeyPress += txtMaSV_KeyPress;
             // 
             // lblHoTen
             // 
@@ -158,6 +159,7 @@
             // 
             txtHoTen.Location = new Point(390, 22);
             txtHoTen.Name = "txtHoTen";
+            txtHoTen.PlaceholderText = "Dương Nga";
             txtHoTen.Size = new Size(200, 31);
             txtHoTen.TabIndex = 3;
             // 
@@ -224,6 +226,7 @@
             // 
             txtDiem.Location = new Point(705, 56);
             txtDiem.Name = "txtDiem";
+            txtDiem.PlaceholderText = "0.0";
             txtDiem.Size = new Size(210, 31);
             txtDiem.TabIndex = 8;
             txtDiem.TextChanged += txtDiem_TextChanged;
@@ -240,8 +243,10 @@
             // 
             txtEmail.Location = new Point(100, 92);
             txtEmail.Name = "txtEmail";
+            txtEmail.PlaceholderText = "abc@st.vju.ac.vn";
             txtEmail.Size = new Size(180, 31);
             txtEmail.TabIndex = 2;
+            txtEmail.TextChanged += txtEmail_TextChanged;
             // 
             // lblDienThoai
             // 
@@ -255,6 +260,7 @@
             // 
             txtDienThoai.Location = new Point(390, 92);
             txtDienThoai.Name = "txtDienThoai";
+            txtDienThoai.PlaceholderText = "0926254364";
             txtDienThoai.Size = new Size(200, 31);
             txtDienThoai.TabIndex = 6;
             // 

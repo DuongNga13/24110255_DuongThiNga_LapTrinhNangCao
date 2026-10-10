@@ -11,7 +11,7 @@ namespace StudentManagementt.BUL
 
         public List<LopHoc> GetAll() => _dal.GetAll();
 
-        /// <summary>Thêm lớp mới. Trả về null nếu thành công, chuỗi lỗi nếu thất bại.</summary>
+        /// Thêm lớp mới. Trả về null nếu thành công, chuỗi lỗi nếu thất bại.
         public string? Add(LopHoc lop)
         {
             string? error = Validate(lop);
@@ -20,7 +20,7 @@ namespace StudentManagementt.BUL
             return _dal.Add(lop) ? null : $"Mã lớp '{lop.MaLop}' đã tồn tại.";
         }
 
-        /// <summary>Kiểm tra dữ liệu hợp lệ. Trả về null nếu hợp lệ, chuỗi lỗi nếu không.</summary>
+        /// Kiểm tra dữ liệu hợp lệ. Trả về null nếu hợp lệ, chuỗi lỗi nếu không.
         public string? Validate(LopHoc lop)
         {
             if (string.IsNullOrWhiteSpace(lop.MaLop))
