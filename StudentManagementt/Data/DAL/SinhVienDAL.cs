@@ -8,11 +8,18 @@ namespace StudentManagementt.Data.DAL
     {
         private static readonly List<SinhVien> _data = new()
         {
-            new SinhVien { MaSV = "SV000123", HoTen = "Nguyễn Văn An",  NgaySinh = new DateTime(2006, 1, 1), GioiTinh = "Nam", Email = "an.nv@st.vju.ac.vn",   DienThoai = "0912345678", Diem = 9.5, MaLop = "CSE0101", TrangThai = "Đang học" },
-            new SinhVien { MaSV = "SV000124", HoTen = "Ngô Khắc Anh",   NgaySinh = new DateTime(2006, 2, 2), GioiTinh = "Nữ", Email = "anh.nk@st.vju.ac.vn",  DienThoai = "0901054321", Diem = 9.0, MaLop = "CSE0201", TrangThai = "Đang học" },
-            new SinhVien { MaSV = "SV000125", HoTen = "Lê Hoàng Bình",  NgaySinh = new DateTime(2006, 3, 3), GioiTinh = "Nam", Email = "binh.lh@st.vju.ac.vn", DienThoai = "0920366977", Diem = 7.8, MaLop = "CSE0102", TrangThai = "Đang học" },
-            new SinhVien { MaSV = "SV000126", HoTen = "Đỗ Thế Hùng",   NgaySinh = new DateTime(2006, 4, 4), GioiTinh = "Nữ", Email = "hung.dt@st.vju.ac.vn",  DienThoai = "0977889999", Diem = 8.1, MaLop = "CSE0301", TrangThai = "Đang học" },
-        };
+            new SinhVien { MaSV = "24110578", HoTen = "Nguyễn Văn An",     NgaySinh = new DateTime(2005, 1, 15), GioiTinh = "Nam", Email = "an.nv@st.vju.ac.vn",     DienThoai = "0912345678", Diem = 9.5, MaLop = "CSE0101", TrangThai = "Đang học" },
+            new SinhVien { MaSV = "23648974", HoTen = "Ngô Khắc Anh",      NgaySinh = new DateTime(2004, 2, 20), GioiTinh = "Nam", Email = "anh.nk@st.vju.ac.vn",    DienThoai = "0901054321", Diem = 9.0, MaLop = "CSE0201", TrangThai = "Đang học" },
+            new SinhVien { MaSV = "24110579", HoTen = "Lê Hoàng Bình",     NgaySinh = new DateTime(2005, 3, 10), GioiTinh = "Nam", Email = "binh.lh@st.vju.ac.vn",   DienThoai = "0920366977", Diem = 7.8, MaLop = "CSE0102", TrangThai = "Đang học" },
+            new SinhVien { MaSV = "24110580", HoTen = "Đỗ Thu Hương",      NgaySinh = new DateTime(2006, 4, 25), GioiTinh = "Nữ",  Email = "huong.dt@st.vju.ac.vn",  DienThoai = "0977889999", Diem = 8.1, MaLop = "CSE0301", TrangThai = "Đang học" },
+            new SinhVien { MaSV = "24110581", HoTen = "Nguyễn Văn Bính",   NgaySinh = new DateTime(2005, 9, 01), GioiTinh = "Nam", Email = "binh.nv@st.vju.ac.vn",   DienThoai = "0934567890", Diem = 6.5, MaLop = "CSE0101", TrangThai = "Bảo lưu" },
+            new SinhVien { MaSV = "24110582", HoTen = "Bùi Văn Lộc",       NgaySinh = new DateTime(2006, 5, 18), GioiTinh = "Nam", Email = "loc.bv@st.vju.ac.vn",    DienThoai = "0981122334", Diem = 8.7, MaLop = "CSE0201", TrangThai = "Đang học" },
+            new SinhVien { MaSV = "24110583", HoTen = "Trần Thị Hòa",      NgaySinh = new DateTime(2005, 7, 12), GioiTinh = "Nữ",  Email = "hoa.tt@st.vju.ac.vn",   DienThoai = "0945678901", Diem = 7.2, MaLop = "CSE0102", TrangThai = "Đang học" },
+            new SinhVien { MaSV = "24110584", HoTen = "Lê Tú Anh",         NgaySinh = new DateTime(2006, 8, 30), GioiTinh = "Nữ",  Email = "anh.lt@st.vju.ac.vn",   DienThoai = "0966778899", Diem = 8.4, MaLop = "CSE0301", TrangThai = "Đang học" },
+            new SinhVien { MaSV = "24110585", HoTen = "Phạm Tiến Sinh",    NgaySinh = new DateTime(2005, 11, 05),GioiTinh = "Nam", Email = "sinh.pt@st.vju.ac.vn",   DienThoai = "0955443322", Diem = 5.8, MaLop = "CSE0101", TrangThai = "Thôi học" },
+            new SinhVien { MaSV = "24110586", HoTen = "Quách Ngọc Văn",    NgaySinh = new DateTime(2006, 12, 14),GioiTinh = "Nam", Email = "van.qn@st.vju.ac.vn",    DienThoai = "0911223344", Diem = 9.2, MaLop = "CSE0201", TrangThai = "Đang học" },
+            new SinhVien { MaSV = "24110587", HoTen = "Lê Hoàng Xuân",     NgaySinh = new DateTime(2005, 06, 22),GioiTinh = "Nữ",  Email = "xuan.lh@st.vju.ac.vn",   DienThoai = "0933445566", Diem = 6.9, MaLop = "CSE0102", TrangThai = "Đang học" },
+            new SinhVien { MaSV = "24110588", HoTen = "Đỗ Thế Vinh",       NgaySinh = new DateTime(2004, 10, 08),GioiTinh = "Nam", Email = "vinh.dt@st.vju.ac.vn",   DienThoai = "0971234567", Diem = 7.5, MaLop = "CSE0301", TrangThai = "Đang học" },        };
 
         public List<SinhVien> GetAll() => new(_data);
 
