@@ -1,3 +1,4 @@
+using System;
 using System.Data;
 using Microsoft.Data.SqlClient;
 
@@ -5,88 +6,111 @@ namespace StudentManagementt.Data.DAL
 {
     public class DataHelper
     {
-        private SqlConnection _con;
-        private readonly string _connectionString =
-            @"Server=(localdb)\MSSQLLocalDB;Database=QuanLySinhVien;Trusted_Connection=True;TrustServerCertificate=True;";
+        private SqlConnection con;
+        string connectionString;
 
         public DataHelper()
         {
-            _con = new SqlConnection(_connectionString);
+            this.connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuanLySinhVien;Integrated Security=True;TrustServerCertificate=true";
+            con = new SqlConnection(connectionString);
         }
 
         public void OpenConnection()
         {
-            if (_con.State == ConnectionState.Closed)
+            if (con.State == ConnectionState.Closed)
             {
-                _con.Open();
+                con.Open();
             }
         }
 
         public void CloseConnection()
         {
-            if (_con.State == ConnectionState.Open)
+            if (con.State == ConnectionState.Open)
             {
-                _con.Close();
+                con.Close();
             }
         }
 
-        // Thực thi câu lệnh INSERT / UPDATE / DELETE
-        public void ExecuteQuery(string sql)
+        public void ExecuteNonQuery(string sqlExecuteQuery)
         {
-            OpenConnection();
-            SqlCommand cmd = new SqlCommand(sql, _con);
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
-            CloseConnection();
+            try
+            {
+                OpenConnection();
+                SqlCommand command = new SqlCommand(sqlExecuteQuery, con);
+                command.ExecuteNonQuery();
+                command.Dispose();
+                CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                CloseConnection();
+                throw new Exception(ex.Message, ex);
+            }
         }
 
-        // Thực thi câu lệnh INSERT / UPDATE / DELETE có tham số (tránh SQL Injection)
-        public void ExecuteQuery(string sql, SqlParameter[] parameters)
+        public void ExecuteNonQuery(string sqlExecuteQuery, SqlParameter[] parameters)
         {
-            OpenConnection();
-            SqlCommand cmd = new SqlCommand(sql, _con);
-            cmd.Parameters.AddRange(parameters);
-            cmd.ExecuteNonQuery();
-            cmd.Dispose();
-            CloseConnection();
+            try
+            {
+                OpenConnection();
+                SqlCommand command = new SqlCommand(sqlExecuteQuery, con);
+                command.Parameters.AddRange(parameters);
+                command.ExecuteNonQuery();
+                command.Dispose();
+                CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                CloseConnection();
+                throw new Exception(ex.Message, ex);
+            }
         }
 
-        // Thực thi câu lệnh SELECT — trả về DataTable để hiển thị lên DataGridView
-        public DataTable ExecuteQueryResult(string sql)
+        public SqlDataReader ExcuteReader(string sqlSelect)
         {
-            OpenConnection();
-            SqlCommand cmd = new SqlCommand(sql, _con);
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataTable table = new DataTable();
-            adapter.Fill(table);
-            cmd.Dispose();
-            CloseConnection();
-            return table;
+            try
+            {
+                OpenConnection();
+                SqlCommand command = new SqlCommand(sqlSelect, con);
+                return command.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                CloseConnection();
+                throw new Exception(ex.Message, ex);
+            }
         }
 
-        // Thực thi câu lệnh SELECT có tham số — trả về DataTable
-        public DataTable ExecuteQueryResult(string sql, SqlParameter[] parameters)
+        public DataTable GetDataTable(string sqlSelect)
         {
-            OpenConnection();
-            SqlCommand cmd = new SqlCommand(sql, _con);
-            cmd.Parameters.AddRange(parameters);
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataTable table = new DataTable();
-            adapter.Fill(table);
-            cmd.Dispose();
-            CloseConnection();
-            return table;
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter(sqlSelect, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
-        // Thực thi câu lệnh trả về 1 giá trị duy nhất (COUNT, SUM, MAX,...)
-        public object ExecuteScalar(string sql)
+        public DataTable GetDataTable(string sqlSelect, SqlParameter[] parameters)
         {
-            OpenConnection();
-            SqlCommand cmd = new SqlCommand(sql, _con);
-            object result = cmd.ExecuteScalar();
-            cmd.Dispose();
-            CloseConnection();
-            return result;
+            try
+            {
+                SqlCommand cmd = new SqlCommand(sqlSelect, con);
+                cmd.Parameters.AddRange(parameters);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
     }
 }

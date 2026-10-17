@@ -8,28 +8,42 @@ namespace StudentManagementt.Data.DAL
 {
     public class LopHocDAL
     {
-        private readonly DataHelper _db = new DataHelper();
+        private readonly DataHelper dataHelper = new DataHelper();
 
-        public List<LopHoc> GetAll()
+        public List<LopHoc> GetAllLopHoc()
         {
-            string sql = "SELECT MaLop, TenLop FROM LopHoc ORDER BY MaLop";
-            DataTable table = _db.ExecuteQueryResult(sql);
-            return MapTable(table);
-        }
-
-        public LopHoc? GetByMaLop(string maLop)
-        {
-            string sql = "SELECT MaLop, TenLop FROM LopHoc WHERE MaLop = @MaLop";
-            SqlParameter[] parameters =
+            try
             {
-                new SqlParameter("@MaLop", maLop)
-            };
-            DataTable table = _db.ExecuteQueryResult(sql, parameters);
-            if (table.Rows.Count == 0) return null;
-            return MapRow(table.Rows[0]);
+                List<LopHoc> list = new List<LopHoc>();
+                DataTable dt = dataHelper.GetDataTable("SELECT MaLop, TenLop FROM LopHoc ORDER BY MaLop");
+                foreach (DataRow dr in dt.Rows)
+                {
+                    list.Add(MapRow(dr));
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi tải danh sách lớp học: " + ex.Message, ex);
+            }
         }
 
-        public bool Add(LopHoc lop)
+        public LopHoc? GetLopHocByMaLop(string maLop)
+        {
+            try
+            {
+                SqlParameter[] parameters = { new SqlParameter("@MaLop", maLop) };
+                DataTable dt = dataHelper.GetDataTable("SELECT MaLop, TenLop FROM LopHoc WHERE MaLop = @MaLop", parameters);
+                if (dt.Rows.Count == 0) return null;
+                return MapRow(dt.Rows[0]);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi tìm lớp học có mã '{maLop}': " + ex.Message, ex);
+            }
+        }
+
+        public void AddLopHoc(LopHoc lop)
         {
             try
             {
@@ -39,13 +53,15 @@ namespace StudentManagementt.Data.DAL
                     new SqlParameter("@MaLop",  lop.MaLop),
                     new SqlParameter("@TenLop", lop.TenLop)
                 };
-                _db.ExecuteQuery(sql, parameters);
-                return true;
+                dataHelper.ExecuteNonQuery(sql, parameters);
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi thêm lớp học '{lop.MaLop}': " + ex.Message, ex);
+            }
         }
 
-        public bool Update(LopHoc lop)
+        public void UpdateLopHoc(LopHoc lop)
         {
             try
             {
@@ -55,34 +71,34 @@ namespace StudentManagementt.Data.DAL
                     new SqlParameter("@TenLop", lop.TenLop),
                     new SqlParameter("@MaLop",  lop.MaLop)
                 };
-                _db.ExecuteQuery(sql, parameters);
-                return true;
+                dataHelper.ExecuteNonQuery(sql, parameters);
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi cập nhật lớp học '{lop.MaLop}': " + ex.Message, ex);
+            }
         }
 
-        public bool Delete(string maLop)
+        public void DeleteLopHoc(string maLop)
         {
             try
             {
                 string sql = "DELETE FROM LopHoc WHERE MaLop = @MaLop";
-                SqlParameter[] parameters =
-                {
-                    new SqlParameter("@MaLop", maLop)
-                };
-                _db.ExecuteQuery(sql, parameters);
-                return true;
+                SqlParameter[] parameters = { new SqlParameter("@MaLop", maLop) };
+                dataHelper.ExecuteNonQuery(sql, parameters);
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi xoá lớp học '{maLop}': " + ex.Message, ex);
+            }
         }
 
-        private static List<LopHoc> MapTable(DataTable table)
-        {
-            var list = new List<LopHoc>();
-            foreach (DataRow row in table.Rows)
-                list.Add(MapRow(row));
-            return list;
-        }
+        // Tương thích với các phương thức gọi cũ
+        public List<LopHoc> GetAll() => GetAllLopHoc();
+        public LopHoc? GetByMaLop(string maLop) => GetLopHocByMaLop(maLop);
+        public void Add(LopHoc lop) => AddLopHoc(lop);
+        public void Update(LopHoc lop) => UpdateLopHoc(lop);
+        public void Delete(string maLop) => DeleteLopHoc(maLop);
 
         private static LopHoc MapRow(DataRow row) => new LopHoc
         {

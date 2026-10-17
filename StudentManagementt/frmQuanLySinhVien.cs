@@ -28,13 +28,25 @@ namespace StudentManagementt
         public frmQuanLySinhVien()
         {
             InitializeComponent();
-            _cachedLopList = _lopBUL.GetAll();
-            InitComboBoxes();
-            RefreshGrid(_svBUL.GetAll());
+            LoadData();
             BindEventHandlers();
         }
 
-        // ── Khởi tạo ─────────────────────────────────────────────────────
+        // ── Khởi tạo & nạp dữ liệu (xử lý ngoại lệ tầng View) ──────────────
+
+        private void LoadData()
+        {
+            try
+            {
+                _cachedLopList = _lopBUL.GetAll();
+                InitComboBoxes();
+                RefreshGrid(_svBUL.GetAll());
+            }
+            catch (Exception ex)
+            {
+                ShowError("Lỗi kết nối cơ sở dữ liệu: " + ex.Message);
+            }
+        }
 
         private void InitComboBoxes()
         {
@@ -61,7 +73,17 @@ namespace StudentManagementt
             btnXoa.Click += OnDeleteClick;
             btnLamMoi.Click += (_, _) => ResetForm();
             btnTimKiem.Click += OnSearchClick;
-            btnHienThi.Click += (_, _) => RefreshGrid(_svBUL.GetAll());
+            btnHienThi.Click += (_, _) =>
+            {
+                try
+                {
+                    RefreshGrid(_svBUL.GetAll());
+                }
+                catch (Exception ex)
+                {
+                    ShowError("Không thể tải danh sách sinh viên: " + ex.Message);
+                }
+            };
         }
 
         // ── Hiển thị dữ liệu ─────────────────────────────────────────────
@@ -81,7 +103,7 @@ namespace StudentManagementt
                     col.HeaderText = label;
         }
 
-        // ── Sự kiện ──────────────────────────────────────────────────────
+        // ── Sự kiện (bắt và xử lý ngoại lệ từ tầng BUL/DAL) ─────────────
 
         private void OnGridCellClick(object? sender, DataGridViewCellEventArgs e)
         {
@@ -108,47 +130,73 @@ namespace StudentManagementt
 
         private void OnAddClick(object? sender, EventArgs e)
         {
-            string? error = _svBUL.Add(ReadFormData());
-            if (error != null) { ShowWarning(error); return; }
-
-            RefreshGrid(_svBUL.GetAll());
-            ResetForm();
-            ShowInfo("Thêm sinh viên thành công!");
+            try
+            {
+                _svBUL.Add(ReadFormData());
+                RefreshGrid(_svBUL.GetAll());
+                ResetForm();
+                ShowInfo("Thêm sinh viên thành công!");
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
+            }
         }
 
         private void OnUpdateClick(object? sender, EventArgs e)
         {
-            string? error = _svBUL.Update(ReadFormData());
-            if (error != null) { ShowWarning(error); return; }
-
-            RefreshGrid(_svBUL.GetAll());
-            ShowInfo("Cập nhật thông tin thành công!");
+            try
+            {
+                _svBUL.Update(ReadFormData());
+                RefreshGrid(_svBUL.GetAll());
+                ShowInfo("Cập nhật thông tin thành công!");
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
+            }
         }
 
         private void OnDeleteClick(object? sender, EventArgs e)
         {
             string maSV = txtMaSV.Text.Trim();
-            if (string.IsNullOrEmpty(maSV)) { ShowWarning("Vui lòng chọn sinh viên cần xoá."); return; }
+            if (string.IsNullOrEmpty(maSV))
+            {
+                ShowWarning("Vui lòng chọn sinh viên cần xoá.");
+                return;
+            }
 
             if (!Confirm($"Bạn có chắc muốn xoá sinh viên '{maSV}'?")) return;
 
-            string? error = _svBUL.Delete(maSV);
-            if (error != null) { ShowError(error); return; }
-
-            RefreshGrid(_svBUL.GetAll());
-            ResetForm();
-            ShowInfo("Đã xoá sinh viên thành công!");
+            try
+            {
+                _svBUL.Delete(maSV);
+                RefreshGrid(_svBUL.GetAll());
+                ResetForm();
+                ShowInfo("Đã xoá sinh viên thành công!");
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
+            }
         }
 
         private void OnSearchClick(object? sender, EventArgs e)
         {
-            string keyword = txtTuKhoa.Text.Trim();
-            string tenLop = cboLopFilter.SelectedItem?.ToString() ?? "";
-            string maLop = tenLop == "Tất cả các lớp"
-                ? ""
-                : _cachedLopList.Find(l => l.TenLop == tenLop)?.MaLop ?? "";
+            try
+            {
+                string keyword = txtTuKhoa.Text.Trim();
+                string tenLop = cboLopFilter.SelectedItem?.ToString() ?? "";
+                string maLop = tenLop == "Tất cả các lớp"
+                    ? ""
+                    : _cachedLopList.Find(l => l.TenLop == tenLop)?.MaLop ?? "";
 
-            RefreshGrid(_svBUL.Search(keyword, maLop));
+                RefreshGrid(_svBUL.Search(keyword, maLop));
+            }
+            catch (Exception ex)
+            {
+                ShowError("Lỗi khi tìm kiếm: " + ex.Message);
+            }
         }
 
         // ── Tiện ích ─────────────────────────────────────────────────────
@@ -195,7 +243,7 @@ namespace StudentManagementt
         private static bool Confirm(string msg)
             => MessageBox.Show(msg, "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
 
-        // ── Handlers auto-generated (giữ lại để Designer không báo lỗi) ─
+        // ── Handlers auto-generated ─────────────────────────────────────
         private void panel1_Paint(object sender, PaintEventArgs e) { }
         private void frmQuanLySinhVien_Load(object sender, EventArgs e) { }
         private void maSV_enter(object sender, EventArgs e) => txtMaSV.SelectAll();
@@ -211,10 +259,6 @@ namespace StudentManagementt
         private void label2_Click(object sender, EventArgs e) { }
         private void lblTongSo_Click(object sender, EventArgs e) { }
         private void txtMaSV_KeyPress(object sender, KeyPressEventArgs e) { }
-
-        private void txtEmail_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        private void txtEmail_TextChanged(object sender, EventArgs e) { }
     }
 }

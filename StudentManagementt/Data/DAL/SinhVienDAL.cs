@@ -8,40 +8,107 @@ namespace StudentManagementt.Data.DAL
 {
     public class SinhVienDAL
     {
-        private readonly DataHelper _db = new DataHelper();
+        private readonly DataHelper dataHelper = new DataHelper();
 
-        public List<SinhVien> GetAll()
-        {
-            string sql = "SELECT MaSV,HoTen,NgaySinh,GioiTinh,Email,DienThoai,Diem,MaLop,TrangThai FROM SinhVien ORDER BY MaSV";
-            DataTable table = _db.ExecuteQueryResult(sql);
-            return MapTable(table);
-        }
-
-        public SinhVien? GetByMaSV(string maSV)
-        {
-            string sql = "SELECT MaSV,HoTen,NgaySinh,GioiTinh,Email,DienThoai,Diem,MaLop,TrangThai FROM SinhVien WHERE MaSV = @MaSV";
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@MaSV", maSV)
-            };
-            DataTable table = _db.ExecuteQueryResult(sql, parameters);
-            if (table.Rows.Count == 0) return null;
-            return MapRow(table.Rows[0]);
-        }
-
-        public bool Add(SinhVien sv)
+        public List<SinhVien> GetAllSinhVien()
         {
             try
             {
-                string sql = @"INSERT INTO SinhVien (MaSV,HoTen,NgaySinh,GioiTinh,Email,DienThoai,Diem,MaLop,TrangThai)
-                               VALUES (@MaSV,@HoTen,@NgaySinh,@GioiTinh,@Email,@DienThoai,@Diem,@MaLop,@TrangThai)";
-                _db.ExecuteQuery(sql, BuildParams(sv));
-                return true;
+                List<SinhVien> sinhViens = new List<SinhVien>();
+                DataTable dt = dataHelper.GetDataTable("SELECT * FROM SinhVien ORDER BY MaSV");
+                foreach (DataRow dr in dt.Rows)
+                {
+                    sinhViens.Add(MapRow(dr));
+                }
+                return sinhViens;
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi tải danh sách sinh viên: " + ex.Message, ex);
+            }
         }
 
-        public bool Update(SinhVien sv)
+        public List<SinhVien> GetAllSinhVienUsingReader()
+        {
+            try
+            {
+                List<SinhVien> list = new List<SinhVien>();
+                SqlDataReader dr = dataHelper.ExcuteReader("SELECT * FROM SinhVien ORDER BY MaSV");
+                while (dr.Read())
+                {
+                    list.Add(new SinhVien
+                    {
+                        MaSV = dr["MaSV"].ToString()!,
+                        HoTen = dr["HoTen"].ToString()!,
+                        NgaySinh = Convert.ToDateTime(dr["NgaySinh"]),
+                        GioiTinh = dr["GioiTinh"].ToString()!,
+                        Email = dr["Email"].ToString()!,
+                        DienThoai = dr["DienThoai"].ToString()!,
+                        Diem = Convert.ToDouble(dr["Diem"]),
+                        MaLop = dr["MaLop"].ToString()!,
+                        TrangThai = dr["TrangThai"].ToString()!
+                    });
+                }
+                dr.Close();
+                dataHelper.CloseConnection();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                dataHelper.CloseConnection();
+                throw new Exception("Lỗi khi đọc danh sách sinh viên bằng SqlDataReader: " + ex.Message, ex);
+            }
+        }
+
+        public SinhVien? GetSinhVienByMaSV(string maSV)
+        {
+            try
+            {
+                SqlParameter[] parameters = { new SqlParameter("@MaSV", maSV) };
+                DataTable dt = dataHelper.GetDataTable("SELECT * FROM SinhVien WHERE MaSV = @MaSV", parameters);
+                if (dt.Rows.Count == 0) return null;
+                return MapRow(dt.Rows[0]);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi tìm sinh viên có mã '{maSV}': " + ex.Message, ex);
+            }
+        }
+
+        public List<SinhVien> GetSinhViensByMaLop(string maLop)
+        {
+            try
+            {
+                List<SinhVien> list = new List<SinhVien>();
+                SqlParameter[] parameters = { new SqlParameter("@MaLop", maLop) };
+                DataTable dt = dataHelper.GetDataTable("SELECT * FROM SinhVien WHERE MaLop = @MaLop", parameters);
+                foreach (DataRow r in dt.Rows)
+                {
+                    list.Add(MapRow(r));
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi lấy sinh viên theo mã lớp '{maLop}': " + ex.Message, ex);
+            }
+        }
+
+        public void AddSinhVien(SinhVien sv)
+        {
+            try
+            {
+                string sql = @"INSERT INTO SinhVien (MaSV, HoTen, NgaySinh, GioiTinh, Email, DienThoai, Diem, MaLop, TrangThai)
+                               VALUES (@MaSV, @HoTen, @NgaySinh, @GioiTinh, @Email, @DienThoai, @Diem, @MaLop, @TrangThai)";
+                dataHelper.ExecuteNonQuery(sql, BuildParams(sv));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi thêm sinh viên '{sv.MaSV}': " + ex.Message, ex);
+            }
+        }
+
+        public void UpdateSinhVien(SinhVien sv)
         {
             try
             {
@@ -55,43 +122,62 @@ namespace StudentManagementt.Data.DAL
                                 MaLop     = @MaLop,
                                 TrangThai = @TrangThai
                                WHERE MaSV = @MaSV";
-                _db.ExecuteQuery(sql, BuildParams(sv));
-                return true;
+                dataHelper.ExecuteNonQuery(sql, BuildParams(sv));
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi cập nhật sinh viên '{sv.MaSV}': " + ex.Message, ex);
+            }
         }
 
-        public bool Delete(string maSV)
+        public void DeleteSinhVien(string maSV)
         {
             try
             {
                 string sql = "DELETE FROM SinhVien WHERE MaSV = @MaSV";
-                SqlParameter[] parameters =
-                {
-                    new SqlParameter("@MaSV", maSV)
-                };
-                _db.ExecuteQuery(sql, parameters);
-                return true;
+                SqlParameter[] parameters = { new SqlParameter("@MaSV", maSV) };
+                dataHelper.ExecuteNonQuery(sql, parameters);
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi xoá sinh viên '{maSV}': " + ex.Message, ex);
+            }
         }
 
         public List<SinhVien> Search(string keyword, string maLop)
         {
-            string kw = string.IsNullOrWhiteSpace(keyword) ? "%" : $"%{keyword.Trim()}%";
-            string sql = @"SELECT MaSV,HoTen,NgaySinh,GioiTinh,Email,DienThoai,Diem,MaLop,TrangThai
-                           FROM SinhVien
-                           WHERE (@KW = '%' OR MaSV LIKE @KW OR HoTen LIKE @KW OR Email LIKE @KW OR DienThoai LIKE @KW)
-                             AND (@MaLop = '' OR MaLop = @MaLop)
-                           ORDER BY MaSV";
-            SqlParameter[] parameters =
+            try
             {
-                new SqlParameter("@KW",    kw),
-                new SqlParameter("@MaLop", maLop ?? "")
-            };
-            DataTable table = _db.ExecuteQueryResult(sql, parameters);
-            return MapTable(table);
+                string kw = string.IsNullOrWhiteSpace(keyword) ? "%" : $"%{keyword.Trim()}%";
+                string sql = @"SELECT * FROM SinhVien
+                               WHERE (@KW = '%' OR MaSV LIKE @KW OR HoTen LIKE @KW OR Email LIKE @KW OR DienThoai LIKE @KW)
+                                 AND (@MaLop = '' OR MaLop = @MaLop)
+                               ORDER BY MaSV";
+                SqlParameter[] parameters =
+                {
+                    new SqlParameter("@KW", kw),
+                    new SqlParameter("@MaLop", maLop ?? "")
+                };
+                DataTable dt = dataHelper.GetDataTable(sql, parameters);
+                var list = new List<SinhVien>();
+                foreach (DataRow r in dt.Rows)
+                {
+                    list.Add(MapRow(r));
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi tìm kiếm sinh viên: " + ex.Message, ex);
+            }
         }
+
+        // Tương thích với các phương thức cũ nếu tầng BUL gọi
+        public List<SinhVien> GetAll() => GetAllSinhVien();
+        public SinhVien? GetByMaSV(string maSV) => GetSinhVienByMaSV(maSV);
+        public void Add(SinhVien sv) => AddSinhVien(sv);
+        public void Update(SinhVien sv) => UpdateSinhVien(sv);
+        public void Delete(string maSV) => DeleteSinhVien(maSV);
 
         private static SqlParameter[] BuildParams(SinhVien sv) => new[]
         {
@@ -106,25 +192,17 @@ namespace StudentManagementt.Data.DAL
             new SqlParameter("@TrangThai", sv.TrangThai)
         };
 
-        private static List<SinhVien> MapTable(DataTable table)
+        private static SinhVien MapRow(DataRow dr) => new SinhVien
         {
-            var list = new List<SinhVien>();
-            foreach (DataRow row in table.Rows)
-                list.Add(MapRow(row));
-            return list;
-        }
-
-        private static SinhVien MapRow(DataRow row) => new SinhVien
-        {
-            MaSV      = row["MaSV"].ToString()!,
-            HoTen     = row["HoTen"].ToString()!,
-            NgaySinh  = Convert.ToDateTime(row["NgaySinh"]),
-            GioiTinh  = row["GioiTinh"].ToString()!,
-            Email     = row["Email"].ToString()!,
-            DienThoai = row["DienThoai"].ToString()!,
-            Diem      = Convert.ToDouble(row["Diem"]),
-            MaLop     = row["MaLop"].ToString()!,
-            TrangThai = row["TrangThai"].ToString()!
+            MaSV      = dr["MaSV"].ToString()!,
+            HoTen     = dr["HoTen"].ToString()!,
+            NgaySinh  = Convert.ToDateTime(dr["NgaySinh"]),
+            GioiTinh  = dr["GioiTinh"].ToString()!,
+            Email     = dr["Email"].ToString()!,
+            DienThoai = dr["DienThoai"].ToString()!,
+            Diem      = Convert.ToDouble(dr["Diem"]),
+            MaLop     = dr["MaLop"].ToString()!,
+            TrangThai = dr["TrangThai"].ToString()!
         };
     }
 }
